@@ -1,0 +1,30 @@
+class Solution {
+public:
+   int f(int curr, int prev, vector<int>&arr, int n)
+   {
+       int t = arr[curr] + arr[prev];
+       int ind = lower_bound(arr.begin(),arr.end(),t)-arr.begin();
+       if(ind< n && arr[ind]==t) return 1 + f(ind,curr,arr,n);
+       return 1;
+       
+   }
+
+
+    int lenLongestFibSubseq(vector<int>& arr) {
+        int n = arr.size();
+        int maxi = 0;
+        for(int prev2 = 0;prev2<n;prev2++)
+        {
+            for(int prev1 = prev2 + 1;prev1<n; prev1++)
+            {
+                int t = arr[prev1]+arr[prev2];
+                int ind = lower_bound(arr.begin(),arr.end(),t)-arr.begin();
+                if(ind<n && arr[ind]==t)
+                {
+                    maxi = max(maxi, 2 + f(ind,prev1,arr,n));
+                }
+            }
+        }
+        return maxi;
+    }
+};
